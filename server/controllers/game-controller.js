@@ -96,8 +96,30 @@ getGameById = async (request, response) => {
 	}
 }
 
-getAllGames = (request, response) => {
+getAllGames = async (request, response) => {
+	try {
+		const games = await Game.find()
 
+		if (!games.length) {
+			return response.status(400)
+				.json({
+					success: false,
+					error: "No games to return"
+				})
+		}
+
+		return response.status(200)
+			.json({
+				success: true,
+				values: games,
+			})
+	} catch (error) {
+		return response.status(400)
+			.json({
+				success: false,
+				error,
+			})
+	}
 }
 
 updateGame = (request, response) => {
