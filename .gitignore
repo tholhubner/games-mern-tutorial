@@ -1,0 +1,14 @@
+# OSX
+#
+.DS_Store
+
+# node.js
+#
+npm-debug.log
+yarn-error.log
+yarn.lock
+client/yarn.lock
+client/package-lock.json
+client/node_modules/
+server/yarn.lock
+server/node_modules/
