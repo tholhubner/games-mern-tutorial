@@ -2,8 +2,8 @@ const Game = require("../models/Game")
 
 createGame = (request, response) => {
 	try {
-		const requestBody = request.body
-		if (!requestBody) {
+		const body = request.body
+		if (!body) {
 			return response.status(400)
 			.json({
 				success: false,
@@ -122,8 +122,55 @@ getAllGames = async (request, response) => {
 	}
 }
 
-updateGame = (request, response) => {
+updateGame = async (request, response) => {
+	try {
+		const body = request.body
+		if (!body) {
+			return request.status(400)
+				.json({
+					success: false,
+					error: "Nothing provided to update"
+				})
+		}
 
+		const game = await Game.findById({ _id: request.params.id })
+		if (!game) {
+			return request.status(404)
+				.json({
+					success: false,
+					error: "No game found with that id"
+				})
+		}
+		
+		game.title = body.title
+		game.rating = body.rating
+		game.description = body.description
+		game.esrb = body.esrb
+		game.publisher = body.publisher
+		game.platform = game.platform
+		game.save()
+			.then(() => {
+				return response.status(200)
+					.json({
+						success: true,
+						id: game._id,
+						message: "Game updated!",
+					})
+			})
+			.catch(error => {
+				return response.status(400)
+					.json({
+						success: false,
+						error,
+					})
+			})
+	} catch (error) {
+		return response.status(400)
+			.json({
+				success: false,
+				error,
+			})
+	}
 }
 
 module.exports = {
