@@ -4,7 +4,8 @@ createGame = (request, response) => {
 	try {
 		const requestBody = request.body
 		if (!requestBody) {
-			return response.status(400).json({
+			return response.status(400)
+			.json({
 				success: false,
 				error: "Please provide a game to create...",
 			})
@@ -12,7 +13,8 @@ createGame = (request, response) => {
 
 		const game = new Game(body)
 		if (!game) {
-			return response.status(400).json({
+			return response.status(400)
+			.json({
 				success: false,
 				error: err,
 			})
@@ -20,50 +22,77 @@ createGame = (request, response) => {
 
 		game.save()
 			.then(() => {
-				return response.status(200).json({
-					success: true,
-					id: game._id,
-					message: "Game successfully added to DB!",
-				})
-				.catch(error => {
-					return response.status(400).json({
-						success: false,
-						error,
-						message: "Game creation failed, due to following error...",
+				return response.status(200)
+					.json({
+						success: true,
+						id: game._id,
+						message: "Game successfully added to DB!",
 					})
 				})
-			})
+			.catch(error => {
+				return response.status(400)
+					.json({
+						success: false,
+						error,
+						message: "Game creation failed.",
+					})
+				})
 	} catch (error) {
-		return response.status(400).json({
-			success: false,
-			error,
-		})
+		return response.status(400)
+			.json({
+				success: false,
+				error,
+			})
 	}
 }
 
-deleteGame = (request, response) => {
+deleteGame = async (request, response) => {
+	try {
+		const gameRemoved = await Game.findByIdAndDelete({ _id: request.params.id })
+		if (!gameRemoved) {
+			return response.status(404)
+				.json({
+					success: false,
+					error: "No game found with that id",
+				})
+		}
 
+		return response.status(200)
+			.json({
+				success: true,
+				values: gameRemoved,
+			})
+	} catch (error) {
+		return response.status(400)
+			.json({
+				success: false,
+				error,
+			})
+	}
 }
 
 getGameById = async (request, response) => {
 	try {
 		const game = await Game.findById({ _id: request.params.id })
 		if (!game) {
-			return response.status(404).json({
-				success: false,
-				error: "No game found with that id",
-			})
+			return response.status(404)
+				.json({
+					success: false,
+					error: "No game found with that id",
+				})
 		}
 		
-		return response.status(200).json({
-			success: true,
-			values: game,
-		})
+		return response.status(200)
+			.json({
+				success: true,
+				values: game,
+			})
 	} catch (error) {
-		return response.status(500).json({
-			success: false,
-			message: error.message,
-		})
+		return response.status(500)
+			.json({
+				success: false,
+				message: error.message,
+			})
 	}
 }
 
