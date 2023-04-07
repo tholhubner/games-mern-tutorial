@@ -41,6 +41,10 @@ createGame = (request, response) => {
 	}
 }
 
+deleteGame = (request, response) => {
+
+}
+
 getGameById = async (request, response) => {
 	try {
 		const game = await Game.findById({ _id: request.params.id })
@@ -71,14 +75,10 @@ updateGame = (request, response) => {
 
 }
 
-deleteGame = (request, response) => {
-
-}
-
 module.exports = {
 	createGame,
+	deleteGame,
 	getGameById,
 	getAllGames,
 	updateGame,
-	deleteGame,
 }
