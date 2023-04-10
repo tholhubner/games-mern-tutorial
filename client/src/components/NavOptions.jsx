@@ -10,7 +10,7 @@ const NavOptions = () => {
 			<div className="flex-none">
 				<ul className="menu menu-horizontal px-1">
 					<li>
-						<Link to="/games/list" className="nav-link">Games List</Link>
+						<Link to="/games" className="nav-link">Games List</Link>
 					</li>
 					<li>
 						<Link to="/games/create" className="nav-link">Add Game</Link>
