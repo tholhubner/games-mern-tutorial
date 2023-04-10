@@ -147,7 +147,8 @@ updateGame = async (request, response) => {
 		game.description = body.description
 		game.esrb = body.esrb
 		game.publisher = body.publisher
-		game.platform = game.platform
+		game.developer = body.developer
+		game.platform = body.platform
 		game.save()
 			.then(() => {
 				return response.status(200)

@@ -8,9 +8,10 @@ const Game = new Schema(
 		description: { type: String, required: true },
 		esrb: { type: String, required: true },
 		publisher: { type: String, required: true },
+		developer: { type: String, require: true },
 		platform: { type: [String], required: true },
 	},
 	{ timestamps: true },
 )
 
-module.exports = mongoose.model("movies", Movie)
+module.exports = mongoose.model("games", Game)
