@@ -9,7 +9,7 @@ const GamesForm = () => {
 	const [esrb, setEsrb] = useState("")
 	const [publisher, setPublisher] = useState("")
 	const [developer, setDeveloper] = useState("")
-	const [platform, setPlaform] = useState("")
+	const [platform, setPlatform] = useState("")
 	const [loading, setLoading] = useState(false)
 
 	const onSubmitHandler = async () => {
@@ -17,7 +17,8 @@ const GamesForm = () => {
 		if (title, rating, esrb, publisher, developer, platform) {
 			let platformArray = []
 			platform.split(",").forEach(item => platformArray.push(String(item).trim()))
-			const payload = { title, rating, esrb, publisher, developer, platformArray }
+			console.log(platformArray)
+			const payload = { title, rating, esrb, publisher, developer, platform: platformArray }
 			console.log("Ready, ", payload)
 			if (id) {
 				await api.updateGameById(id, payload)
@@ -34,7 +35,7 @@ const GamesForm = () => {
 						setEsrb("")
 						setPublisher("")
 						setDeveloper("")
-						setPlaform("")
+						setPlatform("")
 						setLoading(false)
 					})
 			}
@@ -49,12 +50,12 @@ const GamesForm = () => {
 				const game = await api.getGameById(id)
 				if (game) {
 					console.log(game)
-					setTitle(game.data.values.name)
+					setTitle(game.data.values.title)
 					setRating(game.data.values.rating)
 					setEsrb(game.data.values.esrb)
 					setPublisher(game.data.values.esrb)
 					setDeveloper(game.data.values.developer)
-					setPlaform(game.data.values.platform.join(", "))
+					setPlatform(game.data.values.platform.join(", "))
 				}
 			}
 		}
@@ -160,7 +161,7 @@ const GamesForm = () => {
 				type="text"
 				className="input input-bordered mb-5"
 				value={platform}
-				onChange={(event) => setPlaform(event.target.value)}
+				onChange={(event) => setPlatform(event.target.value)}
 			/>
 			<div className="btn-group justify-end">
 				<button
