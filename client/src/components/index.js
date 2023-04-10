@@ -1,3 +1,5 @@
-export * from "./NavLogo"
+export * from "./Button"
+export * from "./GamesTable"
 export * from "./NavBar"
+export * from "./NavLogo"
 export * from "./NavOptions"
