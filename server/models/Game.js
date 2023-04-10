@@ -5,7 +5,6 @@ const Game = new Schema(
 	{
 		title: { type: String, required: true },
 		rating: { type: Number, required: true },
-		description: { type: String, required: true },
 		esrb: { type: String, required: true },
 		publisher: { type: String, required: true },
 		developer: { type: String, require: true },
