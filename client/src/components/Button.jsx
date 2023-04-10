@@ -4,7 +4,6 @@ import api from "../api"
 const Button = (props) => {
 	const { id, type } = props
 	const deleteItem = () => {
-		console.log(id)
 		if (window.confirm("Delete this game permanently?")) {
 			api.deleteGameById(id)
 			window.location.reload()

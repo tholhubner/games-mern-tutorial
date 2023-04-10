@@ -17,9 +17,7 @@ const GamesForm = () => {
 		if (title, rating, esrb, publisher, developer, platform) {
 			let platformArray = []
 			platform.split(",").forEach(item => platformArray.push(String(item).trim()))
-			console.log(platformArray)
 			const payload = { title, rating, esrb, publisher, developer, platform: platformArray }
-			console.log("Ready, ", payload)
 			if (id) {
 				await api.updateGameById(id, payload)
 					.then(res => {
@@ -49,7 +47,6 @@ const GamesForm = () => {
 			if (id) {
 				const game = await api.getGameById(id)
 				if (game) {
-					console.log(game)
 					setTitle(game.data.values.title)
 					setRating(game.data.values.rating)
 					setEsrb(game.data.values.esrb)

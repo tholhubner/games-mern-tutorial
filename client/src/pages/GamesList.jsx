@@ -10,7 +10,6 @@ const GamesList = () => {
 		async function fetchGamesList() {
 			const request = await api.getAllGames()
 			if (request.data.values.length) {
-				console.log("Games Got :: ", request.data.values)
 				setGames(request.data.values)
 				setShowTable(true)
 			}
